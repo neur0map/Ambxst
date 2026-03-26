@@ -1080,6 +1080,21 @@ Singleton {
         }
     }
 
+
+    // Timer to create binds.json if missing after initial load
+    Timer {
+        id: createKeybindsTimer
+        interval: 1000
+        repeat: false
+        onTriggered: {
+            const raw = keybindsLoader.text();
+            if (!raw || raw.trim().length === 0) {
+                console.log("binds.json still missing after delay, creating...");
+                keybindsLoader.writeAdapter();
+                repairKeybindsTimer.start();
+            }
+        }
+    }
     // Repair missing binds
     function repairKeybinds() {
         const raw = keybindsLoader.text();
@@ -1223,6 +1238,10 @@ Singleton {
         path: keybindsPath
         atomicWrites: true
         watchChanges: true
+        Component.onCompleted: {
+            // Ensure binds.json is created even if onLoaded never fires
+            createKeybindsTimer.start();
+        }
         onLoaded: {
             if (!root.keybindsInitialLoadComplete) {
                 var raw = text();
@@ -1234,6 +1253,7 @@ Singleton {
                     repairKeybindsTimer.start();
                 }
                 root.keybindsInitialLoadComplete = true;
+                createKeybindsTimer.start();
             }
         }
         onFileChanged: {
