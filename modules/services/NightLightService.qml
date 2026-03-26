@@ -10,7 +10,7 @@ Singleton {
     property bool active: StateService.get("nightLight", false)
     
     property Process wlsunsetProcess: Process {
-        command: ["wlsunset"]
+        command: ["wlsunset", "-t", "4499", "-T", "4500"]
         running: false
         stdout: SplitParser {
             onRead: (data) => {
