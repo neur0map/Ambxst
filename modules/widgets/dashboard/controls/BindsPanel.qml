@@ -204,7 +204,7 @@ Item {
 
         // Initialize edit form state
         if (isAmbxst) {
-            // Ambxst binds still use old format (single key)
+            // I.A.M binds still use old format (single key)
             const bindData = bind.bind;
             root.editName = "";
             root.editKeys = [
@@ -360,7 +360,7 @@ Item {
     readonly property var categories: [
         {
             id: "ambxst",
-            label: "Ambxst",
+            label: "I.A.M",
             icon: Icons.widgets
         },
         {
@@ -404,12 +404,12 @@ Item {
         const binds = [];
         const ambxst = adapter.ambxst;
 
-        // Core Ambxst binds (Launcher, Dashboard, etc.)
+        // Core I.A.M binds (Launcher, Dashboard, etc.)
         const coreKeys = ["launcher", "dashboard", "assistant", "clipboard", "emoji", "notes", "tmux", "wallpapers"];
         for (const key of coreKeys) {
             if (ambxst[key]) {
                 binds.push({
-                    category: "Ambxst",
+                    category: "I.A.M",
                     name: key.charAt(0).toUpperCase() + key.slice(1),
                     path: "ambxst." + key,
                     bind: ambxst[key]
@@ -672,7 +672,7 @@ Item {
             x: root.sideMargin
             spacing: 4
 
-            // Ambxst binds view
+            // I.A.M binds view
             Repeater {
                 id: ambxstRepeater
                 model: root.currentCategory === "ambxst" ? root.getAmbxstBinds() : []
@@ -764,7 +764,7 @@ Item {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.topMargin: 20
                 visible: (root.currentCategory === "ambxst" && ambxstRepeater.count === 0) || (root.currentCategory === "custom" && customRepeater.count === 0)
-                text: root.currentCategory === "ambxst" ? "No Ambxst binds configured" : "No custom binds configured"
+                text: root.currentCategory === "ambxst" ? "No I.A.M binds configured" : "No custom binds configured"
                 font.family: Config.theme.font
                 font.pixelSize: Styling.fontSize(0)
                 color: Colors.overSurfaceVariant
@@ -904,7 +904,7 @@ Item {
                             }
                         }
 
-                        // Reset button (only for Ambxst binds)
+                        // Reset button (only for I.A.M binds)
                         StyledRect {
                             id: resetButton
                             visible: root.isEditingAmbxst
@@ -1353,7 +1353,7 @@ Item {
                         ColumnLayout {
                             Layout.fillWidth: true
                             spacing: 8
-                            // visible: !root.isEditingAmbxst - Removed to allow editing flags for Ambxst binds
+                            // visible: !root.isEditingAmbxst - Removed to allow editing flags for I.A.M binds
 
                             // Actions section header with pager controls
                             RowLayout {

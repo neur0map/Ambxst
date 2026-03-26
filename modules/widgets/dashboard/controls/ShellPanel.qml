@@ -8,6 +8,7 @@ import qs.modules.theme
 import qs.modules.components
 import qs.modules.globals
 import qs.config
+import qs.modules.services
 
 Item {
     id: root
@@ -1116,7 +1117,7 @@ Item {
                         TextInputRow {
                             label: "Custom Text"
                             visible: Config.notch.noMediaDisplay === "custom"
-                            value: Config.notch.customText ?? "Ambxst"
+                            value: Config.notch.customText ?? "I.A.M"
                             placeholder: "Enter text..."
                             onValueEdited: newValue => {
                                 if (newValue !== Config.notch.customText) {
@@ -1736,8 +1737,9 @@ Item {
                         Layout.fillWidth: true
                         spacing: 8
 
+                        // --- Update Status ---
                         Text {
-                            text: "System"
+                            text: "Updates"
                             font.family: Config.theme.font
                             font.pixelSize: Styling.fontSize(-1)
                             font.weight: Font.Medium
@@ -1745,8 +1747,105 @@ Item {
                             Layout.bottomMargin: -4
                         }
 
+                        // Version display
+                        StyledRect {
+                            variant: "pane"
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 64
+                            radius: Styling.radius(0)
+
+                            RowLayout {
+                                anchors.fill: parent
+                                anchors.margins: 16
+                                spacing: 12
+
+                                ColumnLayout {
+                                    spacing: 2
+                                    Layout.fillWidth: true
+                                    Text {
+                                        text: "I.A.M v" + Config.version
+                                        font.family: Config.theme.font
+                                        font.pixelSize: Styling.fontSize(0)
+                                        font.bold: true
+                                        color: Colors.overBackground
+                                    }
+                                    Text {
+                                        text: {
+                                            if (UpdateService.updateStatus === "checking") return "Checking for updates...";
+                                            if (UpdateService.updateStatus === "updating") return "Updating...";
+                                            if (UpdateService.updateStatus === "success") return "Updated successfully!";
+                                            if (UpdateService.updateStatus === "error") return UpdateService.updateError || "Update failed";
+                                            if (UpdateService.updateAvailable) return "v" + UpdateService.latestVersion + " available";
+                                            return "Up to date — checked " + UpdateService.timeSinceLastCheck();
+                                        }
+                                        font.family: Config.theme.font
+                                        font.pixelSize: Styling.fontSize(-2)
+                                        color: {
+                                            if (UpdateService.updateStatus === "error") return Colors.red;
+                                            if (UpdateService.updateStatus === "success") return Colors.green;
+                                            if (UpdateService.updateAvailable) return Colors.primary;
+                                            return Colors.overSurfaceVariant;
+                                        }
+                                    }
+                                }
+
+                                // Status indicator dot
+                                Rectangle {
+                                    width: 10; height: 10
+                                    radius: 5
+                                    color: {
+                                        if (UpdateService.updateStatus === "checking" || UpdateService.updateStatus === "updating") return Colors.yellow;
+                                        if (UpdateService.updateStatus === "success") return Colors.green;
+                                        if (UpdateService.updateStatus === "error") return Colors.red;
+                                        if (UpdateService.updateAvailable) return Colors.primary;
+                                        return Colors.overSurfaceVariant;
+                                    }
+                                    Layout.alignment: Qt.AlignVCenter
+
+                                    // Pulse animation when checking/updating
+                                    SequentialAnimation on opacity {
+                                        running: UpdateService.isChecking || UpdateService.isUpdating
+                                        loops: Animation.Infinite
+                                        NumberAnimation { to: 0.3; duration: 600; easing.type: Easing.InOutSine }
+                                        NumberAnimation { to: 1.0; duration: 600; easing.type: Easing.InOutSine }
+                                    }
+                                }
+                            }
+                        }
+
+                        // Update / Check button
+                        ActionButton {
+                            text: {
+                                if (UpdateService.isUpdating) return "Updating...";
+                                if (UpdateService.updateAvailable) return "Update to v" + UpdateService.latestVersion;
+                                return "Check for Updates";
+                            }
+                            icon: {
+                                if (UpdateService.isUpdating) return Icons.sync;
+                                if (UpdateService.updateAvailable) return Icons.arrowFatLinesDown;
+                                return Icons.arrowCounterClockwise;
+                            }
+                            enabled: !UpdateService.isUpdating && !UpdateService.isChecking
+                            opacity: enabled ? 1.0 : 0.5
+                            onClicked: {
+                                if (UpdateService.updateAvailable) {
+                                    UpdateService.performUpdate();
+                                } else {
+                                    UpdateService.checkUpdates();
+                                }
+                            }
+                        }
+
+                        // Changelog link (only when update available)
+                        ActionButton {
+                            visible: UpdateService.updateAvailable
+                            text: "View Changelog"
+                            icon: Icons.arrowSquareOut
+                            onClicked: Quickshell.execDetached(["xdg-open", UpdateService.changelogUrl])
+                        }
+
                         ToggleRow {
-                            label: "Update Service"
+                            label: "Auto-check for updates"
                             checked: Config.system.updateServiceEnabled ?? true
                             onToggled: value => {
                                 if (value !== Config.system.updateServiceEnabled) {
@@ -1756,16 +1855,33 @@ Item {
                             }
                         }
 
+                        // --- About ---
+                        Text {
+                            text: "About"
+                            font.family: Config.theme.font
+                            font.pixelSize: Styling.fontSize(-1)
+                            font.weight: Font.Medium
+                            color: Colors.overSurfaceVariant
+                            Layout.topMargin: 8
+                            Layout.bottomMargin: -4
+                        }
+
                         ActionButton {
-                            text: "About Ambxst " + Config.version
-                            icon: Icons.info
-                            onClicked: Quickshell.execDetached(["xdg-open", "https://axeni.de/ambxst"])
+                            text: "I.A.M on GitHub"
+                            icon: Icons.arrowSquareOut
+                            onClicked: Quickshell.execDetached(["xdg-open", "https://github.com/neur0map/project-i-a-m"])
                         }
 
                         ActionButton {
                             text: "Donate ❤️"
                             icon: Icons.heart
-                            onClicked: Quickshell.execDetached(["xdg-open", "https://axeni.de/donate"])
+                            onClicked: Quickshell.execDetached(["xdg-open", "https://github.com/neur0map/project-i-a-m"])
+                        }
+
+                        ActionButton {
+                            text: "Donate to Ambxst ❤️"
+                            icon: Icons.heart
+                            onClicked: Quickshell.execDetached(["xdg-open", "https://github.com/sponsors/Axenide"])
                         }
 
                         Text {

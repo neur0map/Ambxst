@@ -11,7 +11,7 @@ QtObject {
     // it will try to guess what users would want to search, not the feature name only
 
     // Main Sections:
-    // 0: Network, 1: Bluetooth, 2: Mixer, 3: Effects, 4: Theme, 5: Binds, 6: System, 7: Compositor, 8: Ambxst
+    // 0: Network, 1: Bluetooth, 2: Mixer, 3: Effects, 4: Theme, 5: Binds, 6: System, 7: Compositor, 8: I.A.M
     
     property var dynamicItems: []
 
@@ -61,25 +61,25 @@ QtObject {
 
         // --- Binds ---
         { label: "Key Bindings", keywords: "shortcuts keyboard hotkeys", section: 5, subSection: "", subLabel: "", icon: Icons.keyboard, isIcon: true },
-        // Binds > Ambxst
-        { label: "Launcher Keybind", keywords: "app launcher menu shortcut", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.rocket, isIcon: true },
-        { label: "Dashboard Keybind", keywords: "widgets dashboard shortcut", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.squaresFour, isIcon: true },
-        { label: "Clipboard Keybind", keywords: "copy paste shortcut super v", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.clipboard, isIcon: true },
-        { label: "Emoji Keybind", keywords: "picker shortcut super period", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.keyboard, isIcon: true },
-        { label: "Tmux Keybind", keywords: "terminal shortcut", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.keyboard, isIcon: true },
-        { label: "Wallpapers Keybind", keywords: "background shortcut super comma", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.keyboard, isIcon: true },
-        { label: "Assistant Keybind", keywords: "ai help shortcut", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.keyboard, isIcon: true },
-        { label: "Notes Keybind", keywords: "note shortcut super n", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.keyboard, isIcon: true },
-        { label: "Overview Keybind", keywords: "workspace shortcut super tab", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.keyboard, isIcon: true },
-        { label: "Powermenu Keybind", keywords: "logout shutdown shortcut super escape", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.power, isIcon: true },
-        { label: "Settings Keybind", keywords: "config preferences shortcut", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.gear, isIcon: true },
-        { label: "Lockscreen Keybind", keywords: "lock security shortcut", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.lock, isIcon: true },
-        { label: "Tools Keybind", keywords: "utilities tools shortcut", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.wrench, isIcon: true },
-        { label: "Screenshot Keybind", keywords: "capture screen shortcut print", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.camera, isIcon: true },
-        { label: "Screenrecord Keybind", keywords: "record video shortcut", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.videoCamera, isIcon: true },
-        { label: "Lens Keybind", keywords: "magnifier zoom shortcut", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.magnifyingGlass, isIcon: true },
-        { label: "Reload Keybind", keywords: "refresh restart shortcut", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.arrowCounterClockwise, isIcon: true },
-        { label: "Quit Keybind", keywords: "exit close shortcut", section: 5, subSection: "", subLabel: "Binds > Ambxst", icon: Icons.signOut, isIcon: true },
+        // Binds > I.A.M
+        { label: "Launcher Keybind", keywords: "app launcher menu shortcut", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.rocket, isIcon: true },
+        { label: "Dashboard Keybind", keywords: "widgets dashboard shortcut", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.squaresFour, isIcon: true },
+        { label: "Clipboard Keybind", keywords: "copy paste shortcut super v", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.clipboard, isIcon: true },
+        { label: "Emoji Keybind", keywords: "picker shortcut super period", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.keyboard, isIcon: true },
+        { label: "Tmux Keybind", keywords: "terminal shortcut", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.keyboard, isIcon: true },
+        { label: "Wallpapers Keybind", keywords: "background shortcut super comma", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.keyboard, isIcon: true },
+        { label: "Assistant Keybind", keywords: "ai help shortcut", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.keyboard, isIcon: true },
+        { label: "Notes Keybind", keywords: "note shortcut super n", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.keyboard, isIcon: true },
+        { label: "Overview Keybind", keywords: "workspace shortcut super tab", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.keyboard, isIcon: true },
+        { label: "Powermenu Keybind", keywords: "logout shutdown shortcut super escape", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.power, isIcon: true },
+        { label: "Settings Keybind", keywords: "config preferences shortcut", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.gear, isIcon: true },
+        { label: "Lockscreen Keybind", keywords: "lock security shortcut", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.lock, isIcon: true },
+        { label: "Tools Keybind", keywords: "utilities tools shortcut", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.wrench, isIcon: true },
+        { label: "Screenshot Keybind", keywords: "capture screen shortcut print", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.camera, isIcon: true },
+        { label: "Screenrecord Keybind", keywords: "record video shortcut", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.videoCamera, isIcon: true },
+        { label: "Lens Keybind", keywords: "magnifier zoom shortcut", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.magnifyingGlass, isIcon: true },
+        { label: "Reload Keybind", keywords: "refresh restart shortcut", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.arrowCounterClockwise, isIcon: true },
+        { label: "Quit Keybind", keywords: "exit close shortcut", section: 5, subSection: "", subLabel: "Binds > I.A.M", icon: Icons.signOut, isIcon: true },
         
         // --- System ---
         { label: "System", keywords: "hardware info resources cpu ram", section: 6, subSection: "", subLabel: "System", icon: Icons.circuitry, isIcon: true },
@@ -145,7 +145,7 @@ QtObject {
         { label: "Blur Vibrancy", keywords: "saturation color", section: 7, subSection: "blur", subLabel: "Compositor > AxctlService", icon: Icons.drop, isIcon: true },
 
         // --- Ambxst / Shell ---
-        { label: "Ambxst", keywords: "about info credits version shell", section: 8, subSection: "", subLabel: "", icon: Qt.resolvedUrl("../../../../assets/ambxst/ambxst-icon.svg"), isIcon: false },
+        { label: "I.A.M", keywords: "about info credits version shell", section: 8, subSection: "", subLabel: "", icon: Qt.resolvedUrl("../../../../assets/ambxst/ambxst-icon.svg"), isIcon: false },
         
         // Ambxst > Bar
         { label: "Bar", keywords: "panel taskbar top bottom", section: 8, subSection: "bar", subLabel: "Ambxst > Bar", icon: Icons.layout, isIcon: true },
@@ -207,7 +207,7 @@ QtObject {
         { label: "Desktop Text Color", keywords: "label font", section: 8, subSection: "desktop", subLabel: "Ambxst > Desktop", icon: Icons.palette, isIcon: true },
         
         // Ambxst > System
-        { label: "Shell System", keywords: "config settings ambxst", section: 8, subSection: "system", subLabel: "Ambxst > System", icon: Icons.circuitry, isIcon: true }
+        { label: "Shell System", keywords: "config settings iam", section: 8, subSection: "system", subLabel: "Ambxst > System", icon: Icons.circuitry, isIcon: true }
     ]
 
     property var items: staticItems.concat(dynamicItems)

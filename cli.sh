@@ -37,7 +37,7 @@ Commands:
     brightness -r [monitor]           Restore saved brightness
     brightness -l                     List monitors and their brightness
     help                              Show this help message
-    version, -v, --version            Show Ambxst version
+    version, -v, --version            Show I.A.M version
     goodbye                           Uninstall Ambxst :(
 
 Examples:
@@ -121,9 +121,7 @@ restart_ambxst() {
 
 case "${1:-}" in
 update)
-	echo "Updating Ambxst..."
-	curl -fsSL get.axeni.de/ambxst | sh
-	restart_ambxst
+	echo "I.A.M update not yet available."
 	;;
 refresh)
 	echo "Refreshing Ambxst profile..."
@@ -176,7 +174,7 @@ quit)
 		echo "Stopping Ambxst (PID $PID)..."
 		kill "$PID"
 	else
-		echo "Ambxst is not running"
+		echo "I.A.M is not running"
 	fi
 	;;
 screen)
@@ -429,7 +427,7 @@ brightness)
 	fi
 	;;
 version | -v | --version)
-	echo "Ambxst $(cat "${SCRIPT_DIR}/version")"
+	echo "I.A.M $(cat "${SCRIPT_DIR}/version")"
 	;;
 goodbye)
 	echo "Uninstalling Ambxst..."
@@ -446,9 +444,9 @@ goodbye)
 			echo "Removing from nix profile..."
 			nix profile remove Ambxst
 		elif command -v ambxst >/dev/null 2>&1; then
-			echo "Ambxst was declared in this system. Please remove it from your configuration in order to uninstall."
+			echo "I.A.M was declared in this system. Please remove it from your configuration in order to uninstall."
 		else
-			echo "Ambxst is not installed."
+			echo "I.A.M is not installed."
 		fi
 		exit 0
 	fi
@@ -469,7 +467,7 @@ goodbye)
 		echo "Configuration files removed."
 	fi
 
-	echo "Ambxst uninstalled. :("
+	echo "I.A.M uninstalled. :("
 	;;
 help | --help | -h)
 	show_help

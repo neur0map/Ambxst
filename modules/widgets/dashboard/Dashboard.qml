@@ -11,6 +11,7 @@ import qs.modules.widgets.dashboard.widgets
 import qs.modules.widgets.dashboard.controls
 import qs.modules.widgets.dashboard.wallpapers
 import qs.modules.widgets.dashboard.metrics
+import qs.modules.widgets.dashboard.arsenal  // I.A.M Arsenal
 import qs.config
 
 NotchAnimationBehavior {
@@ -22,7 +23,7 @@ NotchAnimationBehavior {
         property int currentTab: GlobalStates.dashboardCurrentTab
     }
 
-    readonly property var tabModel: [Icons.widgets, Icons.wallpapers, Icons.heartbeat]
+    readonly property var tabModel: [Icons.widgets, Icons.wallpapers, Icons.heartbeat, Icons.shield]  // I.A.M: Arsenal tab
     readonly property int tabCount: tabModel.length
     readonly property int tabSpacing: 8
 
@@ -189,7 +190,7 @@ NotchAnimationBehavior {
 
                 // Calcular posición Y para un índice dado
                 function getYForIndex(idx) {
-                    if (idx <= 2) {
+                    if (idx < root.tabCount) {  // I.A.M: support 4 tabs
                         return idx * (width + root.tabSpacing);
                     } else {
                         // Controls button at the bottom
@@ -447,6 +448,13 @@ NotchAnimationBehavior {
                     sourceComponent: metricsComponent
                     z: visible ? 1 : 0
                 }
+
+                // Tab 3: Arsenal (I.A.M)
+                TabLoader {
+                    property int index: 3
+                    sourceComponent: arsenalComponent
+                    z: visible ? 1 : 0
+                }
                 
                 // Helper to access current item for focus
                 property var currentItem: {
@@ -454,6 +462,7 @@ NotchAnimationBehavior {
                         case 0: return children[0].item;
                         case 1: return children[1].item;
                         case 2: return children[2].item;
+                        case 3: return children[3].item;  // I.A.M Arsenal
                         default: return null;
                     }
                 }
@@ -578,5 +587,11 @@ NotchAnimationBehavior {
     Component {
         id: wallpapersComponent
         WallpapersTab {}
+    }
+
+    // I.A.M Arsenal tab
+    Component {
+        id: arsenalComponent
+        ArsenalTab {}
     }
 }

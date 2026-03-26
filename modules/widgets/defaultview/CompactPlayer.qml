@@ -76,7 +76,7 @@ Item {
         const displayType = Config.notch.noMediaDisplay ?? "userHost";
         if (displayType === "userHost") return userHostText;
         if (displayType === "compositor") return "AxctlService";
-        return Config.notch.customText ?? "Ambxst";
+        return Config.notch.customText ?? "I.A.M";
     }
 
     readonly property string displayedTitle: {

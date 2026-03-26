@@ -80,9 +80,20 @@ Singleton {
         respectInhibitors: true
 
         onIsIdleChanged: {
-            if (isIdle) {
+            if (isIdle && !CaffeineService.inhibit) {
                 idleTimer.start();
             } else {
+                idleTimer.stop();
+                root.resetIdleState();
+            }
+        }
+    }
+
+    // Stop idle actions immediately when caffeine is toggled on
+    Connections {
+        target: CaffeineService
+        function onInhibitChanged() {
+            if (CaffeineService.inhibit && idleTimer.running) {
                 idleTimer.stop();
                 root.resetIdleState();
             }

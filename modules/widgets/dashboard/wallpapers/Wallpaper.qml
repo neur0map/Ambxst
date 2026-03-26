@@ -1241,9 +1241,46 @@ PanelWindow {
             }
         }
 
+        // I.A.M: swww transition effect — fires behind Ambxst layer during wallpaper switch
+        readonly property var swwwTransitionTypes: ["grow", "outer", "wipe", "wave", "center"]
+        Process {
+            id: swwwTransitionProcess
+            running: false
+        }
+        Process {
+            id: swwwInitProcess
+            running: false
+        }
+        Timer {
+            id: swwwInitTimer
+            interval: 2000
+            repeat: false
+            onTriggered: {
+                if (parent.source) {
+                    swwwInitProcess.command = ["swww", "img", parent.source, "--transition-type", "none"];
+                    swwwInitProcess.running = true;
+                    console.log("I.A.M: swww synced to initial wallpaper:", parent.source);
+                }
+            }
+            Component.onCompleted: start()
+        }
+
         // Trigger animation when source changes
         onSourceChanged: {
             if (previousSource !== "" && source !== previousSource) {
+                // I.A.M: fire swww transition behind Ambxst layer
+                var ft = getFileType(source);
+                if (ft === 'image') {
+                    var types = swwwTransitionTypes;
+                    var randType = types[Math.floor(Math.random() * types.length)];
+                    swwwTransitionProcess.command = ["swww", "img", source,
+                        "--transition-type", randType,
+                        "--transition-fps", "144",
+                        "--transition-duration", "4",
+                        "--transition-bezier", ".05,.9,.1,1.05"];
+                    swwwTransitionProcess.running = true;
+                    console.log("I.A.M: swww transition:", randType, "for", source);
+                }
                 if (Config.animDuration > 0) {
                     transitionAnimation.restart();
                 }
@@ -1259,41 +1296,37 @@ PanelWindow {
             }
         }
 
+        // I.A.M: hide panel during swww transition, then fade back in
         SequentialAnimation {
             id: transitionAnimation
 
-            ParallelAnimation {
-                NumberAnimation {
-                    target: wallImage
-                    property: "scale"
-                    to: 1.01
-                    duration: Config.animDuration
-                    easing.type: Easing.OutCubic
-                }
-                NumberAnimation {
-                    target: wallImage
-                    property: "opacity"
-                    to: 0.5
-                    duration: Config.animDuration
-                    easing.type: Easing.OutCubic
+            ScriptAction {
+                script: {
+                    // Hide the entire wallpaper panel so swww is visible
+                    wallpaper.visible = false;
                 }
             }
 
-            ParallelAnimation {
-                NumberAnimation {
-                    target: wallImage
-                    property: "scale"
-                    to: 1.0
-                    duration: Config.animDuration
-                    easing.type: Easing.OutCubic
+            // Hold hidden while swww does its 4s transition
+            PauseAnimation {
+                duration: 3800
+            }
+
+            ScriptAction {
+                script: {
+                    // Restore panel but start invisible for fade-in
+                    wallImage.opacity = 0.0;
+                    wallpaper.visible = true;
                 }
-                NumberAnimation {
-                    target: wallImage
-                    property: "opacity"
-                    to: 1.0
-                    duration: Config.animDuration
-                    easing.type: Easing.OutCubic
-                }
+            }
+
+            // Fade Ambxst back in with new image + shader tint
+            NumberAnimation {
+                target: wallImage
+                property: "opacity"
+                to: 1.0
+                duration: 800
+                easing.type: Easing.InOutCubic
             }
         }
 

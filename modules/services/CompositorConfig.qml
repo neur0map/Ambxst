@@ -199,10 +199,21 @@ QtObject {
         batchCommand += ` ; keyword decoration:blur:popups_ignorealpha ${Config.compositor.blurPopupsIgnorealpha}`;
         batchCommand += ` ; keyword decoration:blur:input_methods ${Config.compositor.blurInputMethods}`;
         batchCommand += ` ; keyword decoration:blur:input_methods_ignorealpha ${Config.compositor.blurInputMethodsIgnorealpha}`;
-        batchCommand += ` ; keyword bezier myBezier,0.4,0.0,0.2,1.0`;
-        batchCommand += ` ; keyword animation windows,1,2.5,myBezier,popin 80%`;
-        batchCommand += ` ; keyword animation border,1,2.5,myBezier`;
-        batchCommand += ` ; keyword animation fade,1,2.5,myBezier`;
+        // I.A.M: eye candy animations — slow, bouncy, deliberate
+        batchCommand += ` ; keyword bezier smooth,0.25,1.0,0.5,1.0`;
+        batchCommand += ` ; keyword bezier bouncy,0.05,0.9,0.1,1.05`;
+        batchCommand += ` ; keyword bezier elastic,0.28,0.8,0.18,1.15`;
+        batchCommand += ` ; keyword bezier gentle,0.4,0.0,0.0,1.0`;
+        batchCommand += ` ; keyword animation windows,1,5,bouncy,popin 80%`;
+        batchCommand += ` ; keyword animation windowsIn,1,5,bouncy,popin 80%`;
+        batchCommand += ` ; keyword animation windowsOut,1,5,bouncy,popin 80%`;
+        batchCommand += ` ; keyword animation windowsMove,1,5,elastic`;
+        batchCommand += ` ; keyword animation fade,1,5,smooth`;
+        batchCommand += ` ; keyword animation fadeIn,1,5,smooth`;
+        batchCommand += ` ; keyword animation fadeOut,1,4,gentle`;
+        batchCommand += ` ; keyword animation border,1,8,gentle`;
+        batchCommand += ` ; keyword animation borderangle,1,40,gentle,loop`;
+        batchCommand += ` ; keyword animation specialWorkspace,1,5,bouncy,slidefadevert -20%`;
         batchCommand += ` ; ${workspaceCommand}`;
         // Note: workspaceCommand is dynamically calculated based on current animations and orientation.
 

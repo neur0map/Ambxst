@@ -22,6 +22,15 @@ ActionGrid {
         property string type: "button"
     }
 
+
+    QtObject {
+        id: caffeineAction
+        property string icon: CaffeineService.inhibit ? Icons.caffeine : Icons.moon
+        property string tooltip: CaffeineService.inhibit ? "Stay Awake: On" : "Stay Awake"
+        property string command: ""
+        property string type: "button"
+    }
+
     layout: "row"
     buttonSize: 48
     iconSize: 20
@@ -74,7 +83,11 @@ ActionGrid {
             icon: GlobalStates.mirrorWindowVisible ? Icons.webcamSlash : Icons.webcam,
             tooltip: "Mirror",
             command: ""
-        }
+        },
+        {
+            type: "separator"
+        },
+        caffeineAction
     ]
 
     Process {
@@ -167,6 +180,8 @@ ActionGrid {
             root.itemSelected();
         } else if (action.tooltip === "Mirror") {
             GlobalStates.mirrorWindowVisible = !GlobalStates.mirrorWindowVisible;
+        } else if (action.tooltip === "Stay Awake" || action.tooltip === "Stay Awake: On") {
+            CaffeineService.toggleInhibit();
         }
     }
 }

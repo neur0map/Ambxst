@@ -256,9 +256,15 @@ Rectangle {
         },
         {
             icon: Qt.resolvedUrl("../../../../assets/ambxst/ambxst-icon.svg"),
-            label: "Ambxst",
+            label: "I.A.M",
             section: 9,
             isIcon: false
+        },
+        {
+            icon: Icons.shield,
+            label: "Arsenal",
+            section: 10,
+            isIcon: true
         }
     ]
 
@@ -595,6 +601,10 @@ Rectangle {
                 {
                     component: "ShellPanel.qml",
                     section: 9
+                },
+                {
+                    component: "ArsenalPanel.qml",
+                    section: 10
                 }
             ]
 

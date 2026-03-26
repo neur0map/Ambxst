@@ -622,7 +622,7 @@ Singleton {
             property int hoverRegionHeight: 8
             property bool keepHidden: false
             property string noMediaDisplay: "userHost"
-            property string customText: "Ambxst"
+            property string customText: "I.A.M"
             property bool disableHoverExpansion: true
         }
     }
